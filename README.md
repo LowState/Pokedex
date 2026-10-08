@@ -192,3 +192,7 @@ Pokedex/
 ├── banco.sql
 │
 └── README.md
+
+
+## 🔰 Atenção!!!!
+Projeto ainda em desenvolvimento.
