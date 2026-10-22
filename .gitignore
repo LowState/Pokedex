@@ -1,0 +1,9 @@
+# Dependências do Node.js
+node_modules/
+
+# Arquivos com configurações privadas
+.env
+**/.env
+
+# Fotos enviadas pelos usuários
+backend/uploads/

@@ -1,0 +1,8 @@
+# Dependências do backend
+node_modules/
+
+# Configurações privadas
+.env
+
+# Fotos de perfil enviadas pelos usuários
+uploads/

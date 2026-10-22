@@ -1,0 +1,3 @@
+# Arquivos temporários e backups locais do banco
+*.bak
+*.tmp
