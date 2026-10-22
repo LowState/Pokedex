@@ -34,6 +34,26 @@ app.get('/teste-banco', async (req, res) => {
     }
 });
 
+app.get('/teste-pokemon', async (req, res) => {
+    try {
+        const resultado = await pool.query(
+            'SELECT COUNT(*) AS total FROM pokemon'
+        );
+
+        res.json({
+            mensagem: 'Consulta de Pokémon funcionando!',
+            total: Number(resultado.rows[0].total)
+        });
+    } catch (erro) {
+        console.error('Erro ao consultar Pokémon:', erro.message);
+
+        res.status(500).json({
+            erro: 'Não foi possível consultar os Pokémon.'
+        });
+    }
+});
+
+
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
 });
