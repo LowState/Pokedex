@@ -1,0 +1,17 @@
+services:
+  db:
+    image: postgres:16
+    container_name: pokedex-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - dados_postgres:/var/lib/postgresql/data
+      - ./db/banco.sql:/docker-entrypoint-initdb.d/01-banco.sql:ro
+
+volumes:
+  dados_postgres:
