@@ -24,7 +24,31 @@ CREATE TABLE pokemon (
     defesa_base INTEGER NOT NULL,
     ataque_especial_base INTEGER NOT NULL,
     defesa_especial_base INTEGER NOT NULL,
-    velocidade_base INTEGER NOT NULL
+    velocidade_base INTEGER NOT NULL,
+
+    CONSTRAINT pokemon_altura_positiva
+        CHECK (altura_m > 0),
+
+    CONSTRAINT pokemon_peso_positivo
+        CHECK (peso_kg > 0),
+
+    CONSTRAINT pokemon_hp_positivo
+        CHECK (hp_base > 0),
+
+    CONSTRAINT pokemon_ataque_positivo
+        CHECK (ataque_base > 0),
+
+    CONSTRAINT pokemon_defesa_positiva
+        CHECK (defesa_base > 0),
+
+    CONSTRAINT pokemon_ataque_especial_positivo
+        CHECK (ataque_especial_base > 0),
+
+    CONSTRAINT pokemon_defesa_especial_positiva
+        CHECK (defesa_especial_base > 0),
+
+    CONSTRAINT pokemon_velocidade_positiva
+        CHECK (velocidade_base > 0)
 );
 
 CREATE TABLE movimentos (
@@ -35,7 +59,17 @@ CREATE TABLE movimentos (
     precisao INTEGER,
     pp INTEGER NOT NULL,
     categoria VARCHAR(20) NOT NULL,
-    CHECK (categoria IN ('fisico', 'especial', 'status'))
+    CONSTRAINT movimentos_categoria_valida
+        CHECK (categoria IN ('fisico', 'especial', 'status')),
+
+    CONSTRAINT movimentos_poder_valido
+        CHECK (poder IS NULL OR poder >= 0),
+
+    CONSTRAINT movimentos_precisao_valida
+        CHECK (precisao IS NULL OR precisao BETWEEN 0 AND 100),
+
+    CONSTRAINT movimentos_pp_positivo
+        CHECK (pp > 0)
 );
 
 CREATE TABLE equipe (
@@ -72,6 +106,17 @@ CREATE TABLE evolucoes (
     pokemon_destino_id INTEGER REFERENCES pokemon(id),
     metodo VARCHAR(20) NOT NULL,
     nivel INTEGER,
+
+    CONSTRAINT evolucoes_metodo_valido
+        CHECK (metodo IN ('nivel', 'pedra', 'troca')),
+
+    CONSTRAINT evolucoes_nivel_valido
+        CHECK (
+            (metodo = 'nivel' AND nivel > 0)
+            OR
+            (metodo IN ('pedra', 'troca') AND nivel IS NULL)
+        ),
+
     PRIMARY KEY (pokemon_origem_id, pokemon_destino_id)
 );
 
