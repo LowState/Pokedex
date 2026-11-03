@@ -7,10 +7,9 @@ CREATE TABLE treinadores (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     login VARCHAR(50) NOT NULL UNIQUE,
-    senha_hash VARCHAR(255) NOT NULL,
+    senha_hash VARCHAR(60) NOT NULL,
     foto_perfil VARCHAR(255),
-    tipo_usuario VARCHAR(20) NOT NULL DEFAULT 'usuario',
-    CHECK (tipo_usuario IN ('usuario', 'administrador'))
+    administrador BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE pokemon (
@@ -112,7 +111,7 @@ CREATE TABLE evolucoes (
 
     CONSTRAINT evolucoes_nivel_valido
         CHECK (
-            (metodo = 'nivel' AND nivel > 0)
+            (metodo = 'nivel' AND nivel IS NOT NULL AND nivel > 0)
             OR
             (metodo IN ('pedra', 'troca') AND nivel IS NULL)
         ),
@@ -712,9 +711,9 @@ INSERT INTO evolucoes (pokemon_origem_id, pokemon_destino_id, metodo, nivel) VAL
     (147, 148, 'nivel', 30),
     (148, 149, 'nivel', 55);
 
-INSERT INTO treinadores (nome, login, senha_hash, tipo_usuario) VALUES
-    ('Treinador Exemplo', 'treinador_demo', 'HASH_BCRYPT_A_GERAR_NO_BACKEND', 'usuario'),
-    ('Administrador Exemplo', 'admin_demo', 'HASH_BCRYPT_A_GERAR_NO_BACKEND', 'administrador');
+INSERT INTO treinadores (nome, login, senha_hash, administrador) VALUES
+    ('Treinador Exemplo', 'treinador_demo', 'HASH_BCRYPT_A_GERAR_NO_BACKEND', FALSE),
+    ('Administrador Exemplo', 'admin_demo', 'HASH_BCRYPT_A_GERAR_NO_BACKEND', TRUE);
 
 INSERT INTO equipe (treinador_id, pokemon_id, posicao, apelido) VALUES
     (1, 6, 1, 'Chama'),
