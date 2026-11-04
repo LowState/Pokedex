@@ -4,6 +4,7 @@ const cors = require('cors');
 require('dotenv').config();
 const pool = require('./db');
 const rotasUsuarios = require('./rotas/usuarios');
+const verificarToken = require('./middlewares/verificarToken');
 
 const app = express();
 
@@ -55,6 +56,12 @@ app.get('/teste-pokemon', async (req, res) => {
     }
 });
 
+app.get('/teste-autenticacao', verificarToken, (req, res) => {
+    res.json({
+        mensagem: 'Acesso autorizado!',
+        usuario: req.usuario
+    });
+});
 
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
