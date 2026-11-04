@@ -3,11 +3,13 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 const pool = require('./db');
+const rotasUsuarios = require('./rotas/usuarios');
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use('/usuarios', rotasUsuarios);
 
 const PORT = process.env.PORT || 3000;
 
