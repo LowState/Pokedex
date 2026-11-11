@@ -5,6 +5,7 @@ require('dotenv').config();
 const pool = require('./db');
 const rotasUsuarios = require('./rotas/usuarios');
 const verificarToken = require('./middlewares/verificarToken');
+const verificarAdmin = require('./middlewares/verificarAdmin');
 
 const app = express();
 
@@ -59,6 +60,13 @@ app.get('/teste-pokemon', async (req, res) => {
 app.get('/teste-autenticacao', verificarToken, (req, res) => {
     res.json({
         mensagem: 'Acesso autorizado!',
+        usuario: req.usuario
+    });
+});
+
+app.get('/teste-admin', verificarToken, verificarAdmin, (req, res) => {
+    res.json({
+        mensagem: 'Acesso administrativo autorizado!',
         usuario: req.usuario
     });
 });
