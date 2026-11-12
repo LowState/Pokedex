@@ -454,4 +454,86 @@ router.put('/:id', verificarToken, verificarAdmin, async (req, res) => {
     }
 });
 
+router.delete('/:id', verificarToken, verificarAdmin, async (req, res) => {
+    try {
+        const id = Number(req.params.id);
+
+        if (!Number.isInteger(id) || id <= 0) {
+            return res.status(400).json({
+                erro: 'ID do Pokémon inválido.'
+            });
+        }
+
+        const resultado = await pool.query(
+            'SELECT id, nome FROM pokemon WHERE id = $1',
+            [id]
+        );
+
+        if (resultado.rows.length === 0) {
+            return res.status(404).json({
+                erro: 'Pokémon não encontrado.'
+            });
+        }
+
+        const cliente = await pool.connect();
+
+        try {
+            await cliente.query('BEGIN');
+
+            await cliente.query(
+                'DELETE FROM equipe WHERE pokemon_id = $1',
+                [id]
+            );
+
+            await cliente.query(
+                'DELETE FROM favoritos WHERE pokemon_id = $1',
+                [id]
+            );
+
+            await cliente.query(
+                'DELETE FROM evolucoes WHERE pokemon_origem_id = $1 OR pokemon_destino_id = $1',
+                [id]
+            );
+
+            await cliente.query(
+                'DELETE FROM pokemon_movimento WHERE pokemon_id = $1',
+                [id]
+            );
+
+            await cliente.query(
+                'DELETE FROM pokemon_tipo WHERE pokemon_id = $1',
+                [id]
+            );
+
+            await cliente.query(
+                'DELETE FROM pokemon WHERE id = $1',
+                [id]
+            );
+
+            await cliente.query('COMMIT');
+
+            res.json({
+                mensagem: 'Pokémon excluído com sucesso!',
+                pokemon: resultado.rows[0]
+            });
+        } catch (erro) {
+            await cliente.query('ROLLBACK');
+
+            console.error('Erro na exclusão:', erro.message);
+
+            res.status(500).json({
+                erro: 'Não foi possível excluir o Pokémon.'
+            });
+        } finally {
+            cliente.release();
+        }
+    } catch (erro) {
+        console.error('Erro ao buscar Pokémon para exclusão:', erro.message);
+
+        res.status(500).json({
+            erro: 'Não foi possível excluir o Pokémon.'
+        });
+    }
+});
+
 module.exports = router;
