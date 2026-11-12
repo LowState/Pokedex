@@ -1,4 +1,3 @@
-
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
@@ -7,6 +6,7 @@ const rotasUsuarios = require('./rotas/usuarios');
 const verificarToken = require('./middlewares/verificarToken');
 const verificarAdmin = require('./middlewares/verificarAdmin');
 const rotasPokemon = require('./rotas/pokemon');
+const rotasFavoritos = require('./rotas/favoritos');
 
 const app = express();
 
@@ -73,6 +73,8 @@ app.get('/teste-admin', verificarToken, verificarAdmin, (req, res) => {
 });
 
 app.use('/pokemon', rotasPokemon);
+
+app.use('/favoritos', rotasFavoritos);
 
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
