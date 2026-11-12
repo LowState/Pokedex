@@ -7,6 +7,7 @@ const verificarToken = require('./middlewares/verificarToken');
 const verificarAdmin = require('./middlewares/verificarAdmin');
 const rotasPokemon = require('./rotas/pokemon');
 const rotasFavoritos = require('./rotas/favoritos');
+const rotasEquipes = require('./rotas/equipes');
 
 const app = express();
 
@@ -75,6 +76,8 @@ app.get('/teste-admin', verificarToken, verificarAdmin, (req, res) => {
 app.use('/pokemon', rotasPokemon);
 
 app.use('/favoritos', rotasFavoritos);
+
+app.use('/equipes', rotasEquipes);
 
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
