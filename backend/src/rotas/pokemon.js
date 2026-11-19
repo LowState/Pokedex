@@ -145,9 +145,9 @@ router.post('/', verificarToken, verificarAdmin, async (req, res) => {
         ];
 
         for (const atributo of atributos) {
-            if (!Number.isInteger(atributo) || atributo < 0) {
+            if (!Number.isInteger(atributo) || atributo <= 0) {
                 return res.status(400).json({
-                    erro: 'Os atributos base devem ser números inteiros não negativos.'
+                    erro: 'Os atributos base devem ser números inteiros positivos.'
                 });
             }
         }
@@ -339,11 +339,11 @@ router.put('/:id', verificarToken, verificarAdmin, async (req, res) => {
             defesa_especial_base,
             velocidade_base
         ];
-
+        
         for (const atributo of atributos) {
-            if (!Number.isInteger(atributo) || atributo < 0) {
+            if (!Number.isInteger(atributo) || atributo <= 0) {
                 return res.status(400).json({
-                    erro: 'Os atributos devem ser números inteiros não negativos.'
+                    erro: 'Os atributos base devem ser números inteiros positivos.'
                 });
             }
         }
