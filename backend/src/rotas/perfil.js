@@ -159,10 +159,16 @@ router.put('/senha', async (req, res) => {
 
         const senhaHash = await bcrypt.hash(nova_senha, 10);
 
-        await pool.query(
+        const atualizacao = await pool.query(
             'UPDATE treinadores SET senha_hash = $1 WHERE id = $2',
             [senhaHash, req.usuario.id]
         );
+
+        if (atualizacao.rowCount !== 1) {
+            return res.status(404).json({
+                erro: 'Treinador não encontrado.'
+            });
+        }
 
         res.json({
             mensagem: 'Senha alterada com sucesso!'
@@ -207,10 +213,14 @@ router.post('/foto', upload.single('foto'), async (req, res) => {
 
         fs.writeFileSync(caminhoCompleto, req.file.buffer);
 
-        await pool.query(
+        const atualizacao = await pool.query(
             'UPDATE treinadores SET foto_perfil = $1 WHERE id = $2',
             [novoCaminho, req.usuario.id]
         );
+        
+        if (atualizacao.rowCount !== 1) {
+            throw new Error('Não foi possível atualizar a foto no banco de dados.');
+        }        
 
         try {
             excluirArquivo(fotoAntiga);
@@ -241,10 +251,17 @@ router.post('/foto', upload.single('foto'), async (req, res) => {
 
 router.delete('/foto', async (req, res) => {
     try {
-        const resultado = await pool.query(
-            'SELECT foto_perfil FROM treinadores WHERE id = $1',
+
+        const atualizacao = await pool.query(
+            'UPDATE treinadores SET foto_perfil = NULL WHERE id = $1',
             [req.usuario.id]
         );
+        
+        if (atualizacao.rowCount !== 1) {
+            return res.status(404).json({
+                erro: 'Treinador não encontrado.'
+            });
+        }        
 
         if (resultado.rows.length === 0) {
             return res.status(404).json({
