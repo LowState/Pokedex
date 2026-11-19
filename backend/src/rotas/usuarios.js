@@ -28,17 +28,25 @@ router.post('/cadastro', async (req, res) => {
 
         const senhaHash = await bcrypt.hash(senha, 10);
 
+
         const novoUsuario = await pool.query(
             `INSERT INTO treinadores (nome, login, senha_hash)
              VALUES ($1, $2, $3)
              RETURNING id, nome, login, administrador`,
             [nome, login, senhaHash]
         );
-
+        
+        if (novoUsuario.rowCount !== 1) {
+            return res.status(500).json({
+                erro: 'Não foi possível cadastrar o usuário.'
+            });
+        }
+        
         res.status(201).json({
             mensagem: 'Usuário cadastrado com sucesso!',
             usuario: novoUsuario.rows[0]
         });
+        
 
     } catch (erro) {
         console.error('Erro ao cadastrar usuário:', erro.message);
