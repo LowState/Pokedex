@@ -74,7 +74,7 @@ router.post('/', async (req, res) => {
             [treinadorId, pokemon_id, posicao, apelido || null]
         );
 
-        if (resultado.rows.length === 0) {
+        if (resultado.rowCount === 0) {
             return res.status(409).json({
                 erro: 'Esta posição já está ocupada na equipe.'
             });
@@ -136,7 +136,7 @@ router.put('/:posicao', async (req, res) => {
             [pokemon_id, apelido || null, treinadorId, posicao]
         );
 
-        if (resultado.rows.length === 0) {
+        if (resultado.rowCount !== 1) {
             return res.status(404).json({
                 erro: 'Esta posição ainda não possui um Pokémon.'
             });
@@ -173,7 +173,7 @@ router.delete('/:posicao', async (req, res) => {
             [treinadorId, posicao]
         );
 
-        if (resultado.rows.length === 0) {
+        if (resultado.rowCount !== 1) {
             return res.status(404).json({
                 erro: 'Esta posição está vazia.'
             });
