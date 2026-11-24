@@ -26,7 +26,6 @@ Cria uma tabela. Exemplo: `CREATE TABLE tipos (...)` cria a tabela que guarda os
 - `pokemon_tipo` liga Pokémon e tipos. Como é uma tabela de relacionamento, cada linha representa um vínculo.
 - `pokemon_movimento` liga Pokémon e movimentos.
 - `favoritos` liga treinadores aos Pokémon que favoritaram.
-- `evolucoes` relaciona um Pokémon de origem a outro de destino.
 
 ## `INSERT INTO`
 Insere dados. Por exemplo:

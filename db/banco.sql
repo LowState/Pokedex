@@ -100,25 +100,6 @@ CREATE TABLE favoritos (
     PRIMARY KEY (treinador_id, pokemon_id)
 );
 
-CREATE TABLE evolucoes (
-    pokemon_origem_id INTEGER REFERENCES pokemon(id),
-    pokemon_destino_id INTEGER REFERENCES pokemon(id),
-    metodo VARCHAR(20) NOT NULL,
-    nivel INTEGER,
-
-    CONSTRAINT evolucoes_metodo_valido
-        CHECK (metodo IN ('nivel', 'pedra', 'troca')),
-
-    CONSTRAINT evolucoes_nivel_valido
-        CHECK (
-            (metodo = 'nivel' AND nivel IS NOT NULL AND nivel > 0)
-            OR
-            (metodo IN ('pedra', 'troca') AND nivel IS NULL)
-        ),
-
-    PRIMARY KEY (pokemon_origem_id, pokemon_destino_id)
-);
-
 INSERT INTO tipos (nome) VALUES
     ('Normal'),
     ('Fogo'),
@@ -636,80 +617,6 @@ INSERT INTO pokemon_movimento (pokemon_id, movimento_id) VALUES
     (151, 1),
     (151, 31),
     (151, 32);
-
-INSERT INTO evolucoes (pokemon_origem_id, pokemon_destino_id, metodo, nivel) VALUES
-    (1, 2, 'nivel', 16),
-    (2, 3, 'nivel', 32),
-    (4, 5, 'nivel', 16),
-    (5, 6, 'nivel', 36),
-    (7, 8, 'nivel', 16),
-    (8, 9, 'nivel', 36),
-    (10, 11, 'nivel', 7),
-    (11, 12, 'nivel', 10),
-    (13, 14, 'nivel', 7),
-    (14, 15, 'nivel', 10),
-    (16, 17, 'nivel', 18),
-    (17, 18, 'nivel', 36),
-    (19, 20, 'nivel', 20),
-    (21, 22, 'nivel', 20),
-    (23, 24, 'nivel', 22),
-    (25, 26, 'pedra', NULL),
-    (27, 28, 'nivel', 22),
-    (29, 30, 'nivel', 16),
-    (30, 31, 'pedra', NULL),
-    (32, 33, 'nivel', 16),
-    (33, 34, 'pedra', NULL),
-    (35, 36, 'pedra', NULL),
-    (37, 38, 'pedra', NULL),
-    (39, 40, 'pedra', NULL),
-    (41, 42, 'nivel', 22),
-    (43, 44, 'nivel', 21),
-    (44, 45, 'pedra', NULL),
-    (46, 47, 'nivel', 24),
-    (48, 49, 'nivel', 31),
-    (50, 51, 'nivel', 26),
-    (52, 53, 'nivel', 28),
-    (54, 55, 'nivel', 33),
-    (56, 57, 'nivel', 28),
-    (58, 59, 'pedra', NULL),
-    (60, 61, 'nivel', 25),
-    (61, 62, 'troca', NULL),
-    (63, 64, 'nivel', 16),
-    (64, 65, 'troca', NULL),
-    (66, 67, 'nivel', 28),
-    (67, 68, 'troca', NULL),
-    (69, 70, 'nivel', 21),
-    (70, 71, 'pedra', NULL),
-    (72, 73, 'nivel', 30),
-    (74, 75, 'nivel', 25),
-    (75, 76, 'troca', NULL),
-    (77, 78, 'nivel', 40),
-    (79, 80, 'nivel', 37),
-    (81, 82, 'nivel', 30),
-    (84, 85, 'nivel', 31),
-    (86, 87, 'nivel', 34),
-    (88, 89, 'nivel', 38),
-    (90, 91, 'pedra', NULL),
-    (92, 93, 'nivel', 25),
-    (93, 94, 'troca', NULL),
-    (96, 97, 'nivel', 26),
-    (98, 99, 'nivel', 28),
-    (100, 101, 'nivel', 30),
-    (102, 103, 'pedra', NULL),
-    (104, 105, 'nivel', 28),
-    (109, 110, 'nivel', 35),
-    (111, 112, 'nivel', 42),
-    (116, 117, 'nivel', 32),
-    (118, 119, 'nivel', 33),
-    (120, 121, 'pedra', NULL),
-    (129, 130, 'nivel', 20),
-    (133, 134, 'pedra', NULL),
-    (133, 135, 'pedra', NULL),
-    (133, 136, 'pedra', NULL),
-    (138, 139, 'nivel', 40),
-    (140, 141, 'nivel', 40),
-    (147, 148, 'nivel', 30),
-    (148, 149, 'nivel', 55);
 
 INSERT INTO treinadores (nome, login, senha_hash, administrador) VALUES
     ('Treinador Exemplo', 'treinador_demo', 'HASH_BCRYPT_A_GERAR_NO_BACKEND', FALSE),

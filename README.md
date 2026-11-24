@@ -29,7 +29,6 @@ O banco de dados possui tabelas destinadas a armazenar:
 - Tipos associados aos Pokémon.
 - Movimentos associados aos Pokémon.
 - Pokémon favoritos dos treinadores.
-- Evoluções dos Pokémon.
 
 ## Como executar o banco de dados
 

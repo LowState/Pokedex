@@ -2,7 +2,6 @@
 SELECT COUNT(*) AS total_pokemon FROM pokemon;
 SELECT COUNT(*) AS total_tipos FROM tipos;
 SELECT COUNT(*) AS total_movimentos FROM movimentos;
-SELECT COUNT(*) AS total_evolucoes FROM evolucoes;
 SELECT COUNT(*) AS total_tipos_associados FROM pokemon_tipo;
 SELECT COUNT(*) AS total_movimentos_associados FROM pokemon_movimento;
 SELECT COUNT(*) AS total_treinadores FROM treinadores;

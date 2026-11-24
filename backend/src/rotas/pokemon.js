@@ -509,11 +509,6 @@ router.delete('/:id', verificarToken, verificarAdmin, async (req, res) => {
             );
 
             await cliente.query(
-                'DELETE FROM evolucoes WHERE pokemon_origem_id = $1 OR pokemon_destino_id = $1',
-                [id]
-            );
-
-            await cliente.query(
                 'DELETE FROM pokemon_movimento WHERE pokemon_id = $1',
                 [id]
             );
