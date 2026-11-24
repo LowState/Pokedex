@@ -59,7 +59,7 @@ router.post('/', async (req, res) => {
             [treinadorId, pokemon_id]
         );
 
-        if (resultado.rows.length === 0) {
+        if (resultado.rowCount === 0) {
             return res.status(409).json({
                 erro: 'Este Pokémon já está nos seus favoritos.'
             });
@@ -96,7 +96,7 @@ router.delete('/:pokemonId', async (req, res) => {
             [treinadorId, pokemonId]
         );
 
-        if (resultado.rows.length === 0) {
+        if (resultado.rowCount !== 1) {
             return res.status(404).json({
                 erro: 'Pokémon não encontrado nos seus favoritos.'
             });
