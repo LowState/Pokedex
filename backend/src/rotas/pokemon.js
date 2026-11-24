@@ -225,13 +225,23 @@ router.post('/', verificarToken, verificarAdmin, async (req, res) => {
                 ]
             );
 
+            if (novoPokemon.rowCount !== 1) {
+                throw new Error('Não foi possível cadastrar o Pokémon.');
+            }
+
+
             for (let i = 0; i < tipos.length; i++) {
-                await cliente.query(
+                const resultadoTipo = await cliente.query(
                     `INSERT INTO pokemon_tipo (pokemon_id, tipo_id, posicao)
                     VALUES ($1, $2, $3)`,
                     [id, tipos[i], i + 1]
                 );
+
+                if (resultadoTipo.rowCount !== 1) {
+                    throw new Error('Não foi possível associar o tipo ao Pokémon.');
+                }
             }
+
 
             await cliente.query('COMMIT');
 
@@ -339,7 +349,7 @@ router.put('/:id', verificarToken, verificarAdmin, async (req, res) => {
             defesa_especial_base,
             velocidade_base
         ];
-        
+
         for (const atributo of atributos) {
             if (!Number.isInteger(atributo) || atributo <= 0) {
                 return res.status(400).json({
@@ -415,17 +425,25 @@ router.put('/:id', verificarToken, verificarAdmin, async (req, res) => {
                 ]
             );
 
+            if (pokemonAtualizado.rowCount !== 1) {
+                throw new Error('Não foi possível atualizar o Pokémon.');
+            }
+
             await cliente.query(
                 'DELETE FROM pokemon_tipo WHERE pokemon_id = $1',
                 [id]
             );
 
             for (let i = 0; i < tipos.length; i++) {
-                await cliente.query(
+                const resultadoTipo = await cliente.query(
                     `INSERT INTO pokemon_tipo (pokemon_id, tipo_id, posicao)
                     VALUES ($1, $2, $3)`,
                     [id, tipos[i], i + 1]
                 );
+
+                if (resultadoTipo.rowCount !== 1) {
+                    throw new Error('Não foi possível atualizar os tipos do Pokémon.');
+                }
             }
 
             await cliente.query('COMMIT');
@@ -460,16 +478,16 @@ router.delete('/:id', verificarToken, verificarAdmin, async (req, res) => {
 
         if (!Number.isInteger(id) || id <= 0) {
             return res.status(400).json({
-                erro: 'ID do Pokémon inválido.'
+                erro: 'O ID deve ser um número inteiro positivo.'
             });
         }
 
-        const resultado = await pool.query(
-            'SELECT id, nome FROM pokemon WHERE id = $1',
+        const pokemonExistente = await pool.query(
+            'SELECT id FROM pokemon WHERE id = $1',
             [id]
         );
 
-        if (resultado.rows.length === 0) {
+        if (pokemonExistente.rows.length === 0) {
             return res.status(404).json({
                 erro: 'Pokémon não encontrado.'
             });
@@ -505,30 +523,36 @@ router.delete('/:id', verificarToken, verificarAdmin, async (req, res) => {
                 [id]
             );
 
-            await cliente.query(
+            const pokemonExcluido = await cliente.query(
                 'DELETE FROM pokemon WHERE id = $1',
                 [id]
             );
 
+            if (pokemonExcluido.rowCount !== 1) {
+                throw new Error('Não foi possível excluir o Pokémon.');
+            }
+
             await cliente.query('COMMIT');
 
-            res.json({
-                mensagem: 'Pokémon excluído com sucesso!',
-                pokemon: resultado.rows[0]
+            res.status(200).json({
+                mensagem: 'Pokémon excluído com sucesso!'
             });
+
         } catch (erro) {
             await cliente.query('ROLLBACK');
 
-            console.error('Erro na exclusão:', erro.message);
+            console.error('Erro na transação:', erro.message);
 
             res.status(500).json({
                 erro: 'Não foi possível excluir o Pokémon.'
             });
+
         } finally {
             cliente.release();
         }
+
     } catch (erro) {
-        console.error('Erro ao buscar Pokémon para exclusão:', erro.message);
+        console.error('Erro ao excluir Pokémon:', erro.message);
 
         res.status(500).json({
             erro: 'Não foi possível excluir o Pokémon.'
