@@ -137,7 +137,7 @@ router.post('/', verificarToken, verificarAdmin, async (req, res) => {
 
         const resultado = await pool.query(
             `INSERT INTO movimentos
-                (nome, tipo_id, poder, precisao, pp, categoria)
+            (nome, tipo_id, poder, precisao, pp, categoria)
              VALUES ($1, $2, $3, $4, $5, $6)
              RETURNING *`,
             [
@@ -149,6 +149,12 @@ router.post('/', verificarToken, verificarAdmin, async (req, res) => {
                 categoria
             ]
         );
+
+        if (resultado.rowCount !== 1) {
+            return res.status(500).json({
+                erro: 'Não foi possível cadastrar o movimento.'
+            });
+        }
 
         res.status(201).json({
             mensagem: 'Movimento cadastrado com sucesso!',
@@ -216,6 +222,12 @@ router.put('/:id', verificarToken, verificarAdmin, async (req, res) => {
             ]
         );
 
+        if (resultado.rowCount !== 1) {
+            return res.status(404).json({
+                erro: 'Movimento não encontrado.'
+            });
+        }
+
         res.json({
             mensagem: 'Movimento atualizado com sucesso!',
             movimento: resultado.rows[0]
@@ -269,10 +281,14 @@ router.delete('/:id', verificarToken, verificarAdmin, async (req, res) => {
             [id]
         );
 
-        await cliente.query(
+        const movimentoExcluido = await cliente.query(
             'DELETE FROM movimentos WHERE id = $1',
             [id]
         );
+
+        if (movimentoExcluido.rowCount !== 1) {
+            throw new Error('Não foi possível excluir o movimento.');
+        }
 
         await cliente.query('COMMIT');
 
@@ -370,7 +386,7 @@ routerPokemonMovimentos.post(
                 [pokemonId, movimento_id]
             );
 
-            if (resultado.rows.length === 0) {
+            if (resultado.rowCount === 0) {
                 return res.status(409).json({
                     erro: 'O Pokémon já possui esse movimento.'
                 });
@@ -412,7 +428,7 @@ routerPokemonMovimentos.delete(
                 [pokemonId, movimentoId]
             );
 
-            if (resultado.rows.length === 0) {
+            if (resultado.rowCount !== 1) {
                 return res.status(404).json({
                     erro: 'Associação não encontrada.'
                 });
