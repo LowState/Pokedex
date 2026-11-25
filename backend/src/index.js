@@ -90,6 +90,7 @@ app.use('/pokemon', routerPokemonMovimentos);
 
 app.use('/perfil', rotasPerfil);
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+app.use('/imagens', express.static(path.join(__dirname, '../imagens')));
 
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);

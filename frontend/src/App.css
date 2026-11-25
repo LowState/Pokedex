@@ -34,3 +34,70 @@
 .conteudo h1 {
     margin-bottom: 15px;
 }
+
+.pesquisa-pokemon {
+    width: 100%;
+    padding: 15px;
+    margin: 25px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.total-pokemon {
+    margin-bottom: 20px;
+    color: #666;
+}
+
+.lista-pokemon {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 20px;
+}
+
+.card-pokemon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px #00000015;
+    transition: transform 0.2s;
+}
+
+.card-pokemon:hover {
+    transform: translateY(-5px);
+}
+
+.numero-pokemon {
+    align-self: flex-start;
+    color: #777;
+    font-size: 14px;
+}
+
+.card-pokemon img {
+    width: 130px;
+    height: 130px;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+
+.card-pokemon h2 {
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+.tipos-pokemon {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.tipo-pokemon {
+    background-color: #eee;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 13px;
+}

@@ -11,4 +11,16 @@ async function requisicao(rota, opcoes = {}) {
     return dados;
 }
 
-export { requisicao };
+function urlImagem(caminho) {
+    if (!caminho) {
+        return undefined;
+    }
+
+    if (caminho.startsWith('/')) {
+        return `${API_URL}${caminho}`;
+    }
+
+    return caminho;
+}
+
+export { requisicao, urlImagem };

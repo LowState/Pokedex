@@ -264,7 +264,7 @@ Body de exemplo:
 {
     "id": 152,
     "nome": "Chikorita",
-    "foto": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/152.png",
+    "foto": "/imagens/pokemon/152.png",
     "altura_m": 0.9,
     "peso_kg": 6.4,
     "hp_base": 45,
@@ -290,7 +290,7 @@ Body:
 ```json
 {
     "nome": "Chikorita",
-    "foto": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/152.png",
+    "foto": "/imagens/pokemon/152.png",
     "altura_m": 0.9,
     "peso_kg": 6.4,
     "hp_base": 45,
@@ -546,6 +546,26 @@ http://localhost:3000/uploads/NOME_DO_ARQUIVO
 DELETE `/perfil/foto`
 
 Não é necessário enviar dados no Body.
+
+#### Armazenamento de imagens
+
+As imagens dos Pokémon são armazenadas localmente no sistema de arquivos do backend, na pasta `backend/imagens/pokemon/`.
+
+O PostgreSQL armazena apenas o caminho de cada imagem na coluna `foto` da tabela `pokemon`.
+
+O Express disponibiliza essas imagens por meio da rota estática `/imagens`.
+
+Exemplo:
+
+- Arquivo: `backend/imagens/pokemon/001.png`
+- Caminho no banco: `/imagens/pokemon/001.png`
+- Endereço de acesso: `http://localhost:3000/imagens/pokemon/001.png`
+
+As imagens estão incluídas no repositório, portanto não é necessário realizar downloads adicionais durante a execução do projeto.
+
+As fotos de perfil dos treinadores são armazenadas separadamente, na pasta `backend/uploads/`.
+
+As imagens dos Pokémon foram obtidas do repositório [PokeAPI Sprites](https://github.com/PokeAPI/sprites).
 
 ## Testando as permissões de administrador
 
