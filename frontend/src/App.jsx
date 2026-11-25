@@ -9,6 +9,7 @@ import PokemonIndividual from './paginas/PokemonIndividual';
 import Cadastro from './paginas/Cadastro';
 import Login from './paginas/Login';
 import Favoritos from './paginas/Favoritos';
+import Equipe from './paginas/Equipe';
 
 import { obterUsuario, salvarSessao, encerrarSessao } from './servicos/autenticacao';
 
@@ -67,7 +68,7 @@ function App() {
                         path="/equipe"
                         element={
                             <RotaProtegida usuario={usuario}>
-                                <PaginaTemporaria titulo="Minha equipe" />
+                                <Equipe />
                             </RotaProtegida>
                         }
                     />

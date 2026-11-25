@@ -375,3 +375,154 @@
     opacity: 0.6;
     cursor: not-allowed;
 }
+
+.lista-equipe {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 25px;
+}
+
+.espaco-equipe {
+    background-color: white;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+    transition: 0.2s;
+    min-width: 0;
+}
+
+.espaco-equipe:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.espaco-equipe h2 {
+    font-size: 18px;
+    color: #555;
+}
+
+.espaco-equipe img {
+    width: 130px;
+    height: 130px;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+
+.posicao-vazia {
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    color: #888;
+}
+
+.acoes-equipe {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+}
+
+.acoes-equipe button,
+.formulario-equipe button {
+    background-color: #cc0000;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+}
+
+.acoes-equipe button:hover,
+.formulario-equipe button:hover {
+    background-color: #a00000;
+}
+
+.formulario-equipe {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    text-align: left;
+}
+
+.formulario-equipe input,
+.formulario-equipe select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.formulario-equipe button[type="button"] {
+    background-color: #666;
+}
+
+.acoes-equipe button:disabled,
+.formulario-equipe button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.cabecalho .botao-sair {
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    border-radius: 6px;
+    padding: 8px 18px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.cabecalho .botao-sair:hover {
+    background-color: white;
+    color: #cc0000;
+}
+
+.acoes-equipe {
+    display: flex;
+    gap: 8px;
+    margin-top: auto;
+    width: 100%;
+}
+
+.acoes-equipe button {
+    flex: 1;
+    min-width: 0;
+    padding: 9px 5px;
+    font-size: 14px;
+    border: 1px solid #cc0000;
+    transition: 0.2s;
+}
+
+.acoes-equipe button:nth-child(2) {
+    background-color: transparent;
+    color: #cc0000;
+}
+
+.acoes-equipe button:nth-child(2):hover {
+    background-color: #cc0000;
+    color: white;
+}
+
+@media (max-width: 1250px) {
+    .lista-equipe {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 750px) {
+    .lista-equipe {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .lista-equipe {
+        grid-template-columns: 1fr;
+    }
+}
