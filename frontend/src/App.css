@@ -666,3 +666,159 @@
         grid-row: auto;
     }
 }
+
+.admin-pokemon {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin-top: 25px;
+}
+
+.painel-admin {
+    background-color: white;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+}
+
+.painel-admin h2 {
+    font-size: 21px;
+    margin-bottom: 20px;
+}
+
+.formulario-admin {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    border: none;
+    padding: 0;
+    min-width: 0;
+}
+
+.formulario-admin label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.formulario-admin input,
+.formulario-admin select {
+    width: 100%;
+    min-width: 0;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: white;
+    box-sizing: border-box;
+}
+
+.formulario-admin input:focus,
+.formulario-admin select:focus {
+    outline: none;
+    border-color: #cc0000;
+}
+
+.formulario-admin input:disabled {
+    background-color: #eee;
+    color: #777;
+}
+
+.campo-completo {
+    grid-column: 1 / -1;
+}
+
+.acoes-admin {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.acoes-admin button {
+    background-color: #cc0000;
+    color: white;
+    border: 1px solid #cc0000;
+    border-radius: 6px;
+    padding: 10px 18px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.acoes-admin button:hover {
+    background-color: #a00000;
+}
+
+.acoes-admin .botao-secundario {
+    background-color: #666;
+    border-color: #666;
+}
+
+.acoes-admin .botao-secundario:hover {
+    background-color: #444;
+}
+
+.acoes-admin .botao-excluir {
+    background-color: transparent;
+    color: #cc0000;
+}
+
+.acoes-admin .botao-excluir:hover {
+    background-color: #cc0000;
+    color: white;
+}
+
+.acoes-admin button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.tabela-admin-container {
+    overflow-x: auto;
+    max-height: 550px;
+    overflow-y: auto;
+    margin-top: 15px;
+}
+
+.tabela-admin {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.tabela-admin th {
+    background-color: #cc0000;
+    color: white;
+    padding: 15px;
+    position: sticky;
+    top: 0;
+}
+
+.tabela-admin td {
+    padding: 10px 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.tabela-admin tr:hover td {
+    background-color: #f7f7f7;
+}
+
+.tabela-admin img {
+    width: 65px;
+    height: 65px;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+
+@media (max-width: 900px) {
+    .formulario-admin {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 550px) {
+    .formulario-admin {
+        grid-template-columns: 1fr;
+    }
+}

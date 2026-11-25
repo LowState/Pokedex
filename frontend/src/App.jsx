@@ -11,6 +11,7 @@ import Login from './paginas/Login';
 import Favoritos from './paginas/Favoritos';
 import Equipe from './paginas/Equipe';
 import Perfil from './paginas/Perfil';
+import Admin from './paginas/Admin';
 
 import { obterUsuario, salvarSessao, encerrarSessao } from './servicos/autenticacao';
 
@@ -96,7 +97,7 @@ function App() {
                         path="/admin"
                         element={
                             <RotaProtegida usuario={usuario} administrador>
-                                <PaginaTemporaria titulo="Administração" />
+                                <Admin />
                             </RotaProtegida>
                         }
                     />
