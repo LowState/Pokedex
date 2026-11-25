@@ -3,6 +3,8 @@ import Cabecalho from './componentes/Cabecalho';
 import Pokedex from './paginas/Pokedex';
 import './App.css';
 import PokemonIndividual from './paginas/PokemonIndividual';
+import Cadastro from './paginas/Cadastro';
+import Login from './paginas/Login';
 
 function PaginaTemporaria({ titulo }) {
     return <h1>{titulo}</h1>;
@@ -19,11 +21,9 @@ function App() {
 
                     <Route path="/pokemon/:id" element={<PokemonIndividual />} />
 
-                    <Route path="/login"
-                        element={<PaginaTemporaria titulo="Login" />} />
+                    <Route path="/login" element={<Login />} />
 
-                    <Route path="/cadastro"
-                        element={<PaginaTemporaria titulo="Cadastro" />} />
+                    <Route path="/cadastro" element={<Cadastro />} />
 
                     <Route path="/favoritos"
                         element={<PaginaTemporaria titulo="Favoritos" />} />
