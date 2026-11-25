@@ -526,3 +526,143 @@
         grid-template-columns: 1fr;
     }
 }
+
+.pagina-perfil {
+    display: grid;
+    grid-template-columns: minmax(240px, 1fr) minmax(0, 2fr);
+    gap: 25px;
+    margin-top: 25px;
+    align-items: start;
+}
+
+.painel-perfil {
+    background-color: white;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+}
+
+.painel-perfil h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.painel-foto {
+    grid-row: span 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    text-align: center;
+}
+
+.painel-foto h2 {
+    margin-bottom: 0;
+}
+
+.painel-foto p {
+    color: #666;
+}
+
+.foto-perfil {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #cc0000;
+}
+
+.foto-padrao {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f1f1f1;
+    color: #cc0000;
+    font-size: 60px;
+    font-weight: bold;
+}
+
+.tipo-conta {
+    background-color: #f1f1f1;
+    color: #555;
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+.formulario-perfil {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    text-align: left;
+}
+
+.formulario-perfil label {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.formulario-perfil input {
+    width: 100%;
+    min-width: 0;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.formulario-perfil input:focus {
+    outline: none;
+    border-color: #cc0000;
+}
+
+.formulario-perfil small {
+    color: #777;
+}
+
+.formulario-perfil button {
+    background-color: #cc0000;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 18px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.formulario-perfil button:hover {
+    background-color: #a00000;
+}
+
+.botao-remover-foto {
+    width: 100%;
+    background-color: transparent;
+    color: #cc0000;
+    border: 1px solid #cc0000;
+    border-radius: 6px;
+    padding: 10px;
+    transition: 0.2s;
+}
+
+.botao-remover-foto:hover {
+    background-color: #cc0000;
+    color: white;
+}
+
+.formulario-perfil button:disabled,
+.botao-remover-foto:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@media (max-width: 800px) {
+    .pagina-perfil {
+        grid-template-columns: 1fr;
+    }
+
+    .painel-foto {
+        grid-row: auto;
+    }
+}

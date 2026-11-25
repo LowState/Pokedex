@@ -10,6 +10,7 @@ import Cadastro from './paginas/Cadastro';
 import Login from './paginas/Login';
 import Favoritos from './paginas/Favoritos';
 import Equipe from './paginas/Equipe';
+import Perfil from './paginas/Perfil';
 
 import { obterUsuario, salvarSessao, encerrarSessao } from './servicos/autenticacao';
 
@@ -30,6 +31,15 @@ function App() {
     function sair() {
         encerrarSessao();
         setUsuario(null);
+    }
+
+    function atualizarUsuario(dados) {
+        const token = localStorage.getItem('token');
+
+        entrar(token, {
+            ...usuario,
+            ...dados
+        });
     }
 
     return (
@@ -77,7 +87,7 @@ function App() {
                         path="/perfil"
                         element={
                             <RotaProtegida usuario={usuario}>
-                                <PaginaTemporaria titulo="Meu perfil" />
+                                <Perfil onAtualizarUsuario={atualizarUsuario} />
                             </RotaProtegida>
                         }
                     />
