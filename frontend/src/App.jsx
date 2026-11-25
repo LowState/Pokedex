@@ -1,44 +1,99 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useState } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+
 import Cabecalho from './componentes/Cabecalho';
+import RotaProtegida from './componentes/RotaProtegida';
+
 import Pokedex from './paginas/Pokedex';
-import './App.css';
 import PokemonIndividual from './paginas/PokemonIndividual';
 import Cadastro from './paginas/Cadastro';
 import Login from './paginas/Login';
+import Favoritos from './paginas/Favoritos';
+
+import { obterUsuario, salvarSessao, encerrarSessao } from './servicos/autenticacao';
+
+import './App.css';
 
 function PaginaTemporaria({ titulo }) {
     return <h1>{titulo}</h1>;
 }
 
 function App() {
+    const [usuario, setUsuario] = useState(obterUsuario);
+
+    function entrar(token, usuario) {
+        salvarSessao(token, usuario);
+        setUsuario(usuario);
+    }
+
+    function sair() {
+        encerrarSessao();
+        setUsuario(null);
+    }
+
     return (
         <BrowserRouter>
-            <Cabecalho />
+            <Cabecalho usuario={usuario} onLogout={sair} />
 
             <main className="conteudo">
                 <Routes>
                     <Route path="/" element={<Pokedex />} />
 
-                    <Route path="/pokemon/:id" element={<PokemonIndividual />} />
+                    <Route
+                        path="/pokemon/:id"
+                        element={<PokemonIndividual usuario={usuario} />}
+                    />
 
-                    <Route path="/login" element={<Login />} />
+                    <Route
+                        path="/login"
+                        element={usuario ? <Navigate to="/" replace /> : <Login onLogin={entrar} />}
+                    />
 
-                    <Route path="/cadastro" element={<Cadastro />} />
+                    <Route
+                        path="/cadastro"
+                        element={usuario ? <Navigate to="/" replace /> : <Cadastro />}
+                    />
 
-                    <Route path="/favoritos"
-                        element={<PaginaTemporaria titulo="Favoritos" />} />
+                    <Route
+                        path="/favoritos"
+                        element={
+                            <RotaProtegida usuario={usuario}>
+                                <Favoritos />
+                            </RotaProtegida>
+                        }
+                    />
 
-                    <Route path="/equipe"
-                        element={<PaginaTemporaria titulo="Minha equipe" />} />
+                    <Route
+                        path="/equipe"
+                        element={
+                            <RotaProtegida usuario={usuario}>
+                                <PaginaTemporaria titulo="Minha equipe" />
+                            </RotaProtegida>
+                        }
+                    />
 
-                    <Route path="/perfil"
-                        element={<PaginaTemporaria titulo="Meu perfil" />} />
+                    <Route
+                        path="/perfil"
+                        element={
+                            <RotaProtegida usuario={usuario}>
+                                <PaginaTemporaria titulo="Meu perfil" />
+                            </RotaProtegida>
+                        }
+                    />
 
-                    <Route path="/admin"
-                        element={<PaginaTemporaria titulo="Administração" />} />
+                    <Route
+                        path="/admin"
+                        element={
+                            <RotaProtegida usuario={usuario} administrador>
+                                <PaginaTemporaria titulo="Administração" />
+                            </RotaProtegida>
+                        }
+                    />
 
-                    <Route path="*"
-                        element={<PaginaTemporaria titulo="Página não encontrada" />} />
+                    <Route
+                        path="*"
+                        element={<PaginaTemporaria titulo="Página não encontrada" />}
+                    />
                 </Routes>
             </main>
         </BrowserRouter>

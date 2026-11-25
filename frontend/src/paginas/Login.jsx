@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { requisicao } from '../servicos/api';
 
-function Login() {
+function Login({ onLogin }) {
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -32,8 +32,7 @@ function Login() {
                 throw new Error('Resposta de login inválida.');
             }
 
-            localStorage.setItem('token', dados.token);
-            localStorage.setItem('usuario', JSON.stringify(dados.usuario));
+            onLogin(dados.token, dados.usuario);
 
             navigate('/', { replace: true });
         } catch (erro) {

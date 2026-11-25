@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { requisicao, urlImagem } from '../servicos/api';
+import BotaoFavorito from '../componentes/BotaoFavorito';
 
-function PokemonIndividual() {
+function PokemonIndividual({ usuario }) {
     const { id } = useParams();
 
     const [pokemon, setPokemon] = useState(null);
@@ -81,6 +82,17 @@ function PokemonIndividual() {
 
                     <p>Altura: {pokemon.altura_m} m</p>
                     <p>Peso: {pokemon.peso_kg} kg</p>
+
+                    {usuario ? (
+                        <BotaoFavorito
+                            key={`${usuario.id}-${pokemon.id}`}
+                            pokemonId={pokemon.id}
+                        />
+                    ) : (
+                        <Link to="/login" className="link-favorito">
+                            Entre para adicionar aos favoritos
+                        </Link>
+                    )}
                 </div>
 
                 <div className="atributos-pokemon">

@@ -293,3 +293,85 @@
     padding: 12px;
     border-radius: 8px;
 }
+
+.area-favorito {
+    width: 100%;
+    text-align: center;
+}
+
+.botao-favorito {
+    padding: 12px 20px;
+    border: 2px solid #cc0000;
+    border-radius: 8px;
+    background-color: white;
+    color: #cc0000;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.botao-favorito:hover {
+    background-color: #ffe5e5;
+}
+
+.botao-favorito.favoritado {
+    background-color: #cc0000;
+    color: white;
+}
+
+.botao-favorito.favoritado:hover {
+    background-color: #a00000;
+}
+
+.link-favorito {
+    color: #cc0000;
+    font-weight: bold;
+}
+
+.favoritos-vazios {
+    background-color: white;
+    padding: 40px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.favoritos-vazios h2 {
+    margin-bottom: 15px;
+}
+
+.favoritos-vazios p {
+    margin-bottom: 25px;
+    color: #666;
+}
+
+.favoritos-vazios .botao-voltar {
+    margin-bottom: 0;
+}
+
+.item-favorito {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.item-favorito .card-pokemon {
+    flex: 1;
+}
+
+.botao-remover-favorito {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: #cc0000;
+    color: white;
+    font-weight: bold;
+}
+
+.botao-remover-favorito:hover {
+    background-color: #a00000;
+}
+
+.botao-favorito:disabled,
+.botao-remover-favorito:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
