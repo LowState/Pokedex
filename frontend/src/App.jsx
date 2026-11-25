@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Cabecalho from './componentes/Cabecalho';
 import Pokedex from './paginas/Pokedex';
 import './App.css';
+import PokemonIndividual from './paginas/PokemonIndividual';
 
 function PaginaTemporaria({ titulo }) {
     return <h1>{titulo}</h1>;
@@ -16,8 +17,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Pokedex />} />
 
-                    <Route path="/pokemon/:id"
-                        element={<PaginaTemporaria titulo="Detalhes do Pokémon" />} />
+                    <Route path="/pokemon/:id" element={<PokemonIndividual />} />
 
                     <Route path="/login"
                         element={<PaginaTemporaria titulo="Login" />} />
