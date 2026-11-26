@@ -1,3 +1,13 @@
+:root {
+    --vermelho: #cc0000;
+    --vermelho-escuro: #a00000;
+    --fundo: #f4f5f7;
+    --texto: #222;
+    --texto-secundario: #626873;
+    --borda: #dfe2e7;
+    --sombra: 0 3px 12px #20232b0d;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,8 +16,10 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #222;
+    background-color: var(--fundo);
+    color: var(--texto);
+    line-height: 1.5;
+    min-width: 0;
 }
 
 a {
@@ -21,4 +33,14 @@ button, input, select {
 
 button {
     cursor: pointer;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+:focus-visible {
+    outline: 3px solid #b64a4a;
+    outline-offset: 3px;
 }
