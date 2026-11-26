@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import AdminPokemon from '../componentes/AdminPokemon';
 import AdminMovimentos from '../componentes/AdminMovimentos';
+import AdminPokemon_Movimento from '../componentes/AdminPokemon_Movimento';
 
 function Admin() {
     const [aba, setAba] = useState('pokemon');
@@ -27,11 +28,20 @@ function Admin() {
                 >
                     Movimentos
                 </button>
+
+                <button
+                    className={aba === 'associacoes' && <AdminPokemon_Movimento />}
+                    onClick={() => setAba('associacoes')}
+                >
+                    Associações
+                </button>
             </div>
 
             {aba === 'pokemon' && <AdminPokemon />}
 
             {aba === 'movimentos' && <AdminMovimentos />}
+
+            {aba === 'associacoes' && <AdminPokemon_Movimento />}
         </section>
     );
 }
